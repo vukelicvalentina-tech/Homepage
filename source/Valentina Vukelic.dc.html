@@ -7,11 +7,11 @@
 </head>
 <body>
 <x-dc>
-<helmet data-dc-atomics="">
+<helmet data-dc-atomics>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 html,body{margin:0;padding:0;height:100%;background:#f1f0ed;color:#0c0c0c;font-family:'Archivo',system-ui,sans-serif;overflow:hidden}
 a{color:#0c0c0c;text-decoration:underline;text-underline-offset:3px}
@@ -20,17 +20,25 @@ a:hover{color:#6b6b6b}
 @keyframes vvPulse{0%,100%{opacity:.3}50%{opacity:.85}}
 </style>
 </helmet>
-<div data-screen-label="Bildfläche" ref="{{ stageRef }}" onMouseMove="{{ stageMove }}" onTouchStart="{{ stageTouch }}" onClick="{{ stageClick }}" style="position:fixed;inset:0;overflow:hidden;cursor:crosshair">
+<div data-screen-label="Bildfläche" ref="{{ stageRef }}" onMouseMove="{{ stageMove }}" onTouchStart="{{ stageTouch }}" onClick="{{ stageClick }}" style="position:fixed;inset:0;overflow:hidden;cursor:crosshair;perspective:2000px;perspective-origin:50% 44%">
+  <sc-if value="{{ bigName }}" hint-placeholder-val="{{ true }}">
+    <div ref="{{ nameRef }}" style="position:absolute;left:50%;top:48%;transform:translate(-50%,-50%);z-index:250;pointer-events:none;white-space:nowrap;font-size:min(7.4vw,13vh);font-weight:300;letter-spacing:-.025em;line-height:.9">valentinavukelic</div>
+  </sc-if>
   <sc-for list="{{ works }}" as="w" hint-placeholder-count="7">
-    <div data-vvi="{{ $index }}" onMouseEnter="{{ w.enter }}" onMouseLeave="{{ w.leave }}" onClick="{{ w.click }}" style="position:absolute;left:0;top:0;width:140px;height:180px;opacity:0;transition:opacity .5s ease;will-change:transform;background:rgba(12,12,12,0.05);overflow:hidden;box-shadow:0 10px 50px rgba(12,12,12,0.15);user-select:none">
-      <img src="{{ w.src }}" alt="{{ w.title }}" draggable="false" style="display:block;width:100%;height:100%;object-fit:cover;pointer-events:none;filter:grayscale(1)">
+    <div data-vvi="{{ $index }}" onMouseEnter="{{ w.enter }}" onMouseLeave="{{ w.leave }}" onClick="{{ w.click }}" style="position:absolute;left:0;top:0;width:140px;height:180px;opacity:0;will-change:transform;background:rgba(12,12,12,0.05);overflow:hidden;box-shadow:0 12px 44px rgba(12,12,12,0.16);user-select:none">
+      <img alt="{{ w.title }}" draggable="false" style="display:block;width:100%;height:100%;object-fit:cover;pointer-events:none;filter:grayscale(1)">
     </div>
   </sc-for>
-  <div ref="{{ nameRef }}" style="position:fixed;left:50%;top:28px;z-index:640;pointer-events:none;transform:translateX(-50%);display:flex;align-items:baseline;gap:0.3em;line-height:1;font-size:24px;letter-spacing:.08em;text-transform:uppercase;white-space:nowrap">
-    <span style="font-weight:300;opacity:.75;display:inline-block;transform:rotate(180deg)">Vukelic</span><span ref="{{ firstRef }}" style="font-weight:700">Valentina</span>
-  </div>
+  <sc-if value="{{ cornerName }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed;left:22px;top:28px;z-index:640;pointer-events:none;writing-mode:vertical-rl;line-height:1;font-size:24px;letter-spacing:.08em;text-transform:uppercase;white-space:nowrap">
+      <span style="font-weight:700">Valentina</span><span style="font-weight:300;opacity:.75;margin-block-start:-0.38em">Vukelic</span>
+    </div>
+  </sc-if>
+  <sc-if value="{{ bigName }}" hint-placeholder-val="{{ true }}">
+    <div ref="{{ subRef }}" style="position:fixed;left:0;right:0;top:calc(48% + min(4.6vw,8vh));z-index:249;pointer-events:none;text-align:center;font-size:10px;letter-spacing:.34em;text-transform:uppercase;opacity:.5">Metall &nbsp;•&nbsp; Objekt &nbsp;•&nbsp; Skulptur</div>
+  </sc-if>
   <sc-if value="{{ showHint }}" hint-placeholder-val="{{ true }}">
-    <div style="position:fixed;left:50%;top:calc(50% + 128px);transform:translateX(-50%);z-index:640;pointer-events:none;font-size:10px;letter-spacing:.34em;text-transform:uppercase;animation:vvPulse 2.6s ease-in-out infinite">Portfolio</div>
+    <div style="position:fixed;left:50%;top:calc(50% + 148px);transform:translateX(-50%);z-index:640;pointer-events:none;font-size:10px;letter-spacing:.34em;text-transform:uppercase;animation:vvPulse 2.6s ease-in-out infinite">Portfolio</div>
   </sc-if>
   <button onClick="{{ toggleInfo }}" style="position:fixed;left:26px;bottom:20px;z-index:640;appearance:none;background:none;border:none;padding:6px 0;font-family:inherit;font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:#0c0c0c;opacity:.55;cursor:pointer" style-hover="opacity:1">Info &amp; Kontakt</button>
   <sc-if value="{{ caption }}" hint-placeholder-val="{{ false }}">
@@ -55,22 +63,27 @@ a:hover{color:#6b6b6b}
   </div>
 </sc-if>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props="{&quot;nameAlign&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;links&quot;,&quot;zentriert&quot;,&quot;rechts&quot;],&quot;default&quot;:&quot;zentriert&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Name-Position&quot;},&quot;nameX&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:14,&quot;min&quot;:0,&quot;max&quot;:100,&quot;step&quot;:0.5,&quot;unit&quot;:&quot;%&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Name-Position&quot;},&quot;nameY&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:24,&quot;min&quot;:0,&quot;max&quot;:600,&quot;step&quot;:1,&quot;unit&quot;:&quot;px&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Name-Position&quot;},&quot;nameSize&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:20,&quot;min&quot;:12,&quot;max&quot;:120,&quot;step&quot;:1,&quot;unit&quot;:&quot;px&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Name&quot;},&quot;nameGap&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:-0.05,&quot;min&quot;:-0.5,&quot;max&quot;:2,&quot;step&quot;:0.05,&quot;unit&quot;:&quot;em&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Name&quot;},&quot;imageCount&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:20,&quot;min&quot;:6,&quot;max&quot;:36,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Bilder&quot;},&quot;focusScale&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:0.6,&quot;min&quot;:0.3,&quot;max&quot;:0.98,&quot;step&quot;:0.01,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Verhalten&quot;},&quot;drift&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:1,&quot;min&quot;:0,&quot;max&quot;:2.5,&quot;step&quot;:0.1,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Verhalten&quot;}}">
+<script type="text/x-dc" data-dc-script data-props="{&quot;anordnung&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;Ellipse&quot;,&quot;options&quot;:[&quot;Ellipse&quot;,&quot;V&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Anordnung&quot;},&quot;tempo&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:1,&quot;min&quot;:0.05,&quot;max&quot;:4,&quot;step&quot;:0.05,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Automatik&quot;},&quot;wellen&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:1,&quot;min&quot;:0,&quot;max&quot;:3,&quot;step&quot;:0.05,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Automatik&quot;},&quot;automatik&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:1,&quot;min&quot;:0,&quot;max&quot;:2,&quot;step&quot;:0.05,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Automatik&quot;},&quot;autoTempo&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:1,&quot;min&quot;:0.05,&quot;max&quot;:4,&quot;step&quot;:0.05,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Automatik&quot;},&quot;nameGroesse&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:7.4,&quot;min&quot;:2,&quot;max&quot;:24,&quot;step&quot;:0.1,&quot;unit&quot;:&quot;vw&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Name&quot;},&quot;nameStaerke&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;Leicht&quot;,&quot;options&quot;:[&quot;Extraleicht&quot;,&quot;Leicht&quot;,&quot;Normal&quot;,&quot;Medium&quot;,&quot;Fett&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Name&quot;},&quot;nameSpur&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:-0.025,&quot;min&quot;:-0.06,&quot;max&quot;:0.4,&quot;step&quot;:0.005,&quot;unit&quot;:&quot;em&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Name&quot;},&quot;ringBreite&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:0.36,&quot;min&quot;:0.15,&quot;max&quot;:0.55,&quot;step&quot;:0.01,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Ellipse (Mittelwerte)&quot;},&quot;ringNeigung&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:0.37,&quot;min&quot;:0.06,&quot;max&quot;:0.8,&quot;step&quot;:0.01,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Ellipse (Mittelwerte)&quot;},&quot;ringKippung&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:0,&quot;min&quot;:-35,&quot;max&quot;:35,&quot;step&quot;:1,&quot;unit&quot;:&quot;°&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Ellipse (Mittelwerte)&quot;},&quot;kachelGroesse&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:1,&quot;min&quot;:0.3,&quot;max&quot;:2,&quot;step&quot;:0.05,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Ellipse (Mittelwerte)&quot;},&quot;ringTempo&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:1,&quot;min&quot;:0,&quot;max&quot;:4,&quot;step&quot;:0.1,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Ellipse (Mittelwerte)&quot;},&quot;imageCount&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:20,&quot;min&quot;:6,&quot;max&quot;:36,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Bilder&quot;},&quot;focusScale&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:0.6,&quot;min&quot;:0.3,&quot;max&quot;:0.98,&quot;step&quot;:0.01,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Verhalten&quot;},&quot;drift&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:1,&quot;min&quot;:0,&quot;max&quot;:2.5,&quot;step&quot;:0.1,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Verhalten&quot;},&quot;bild01&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:1,&quot;min&quot;:0.2,&quot;max&quot;:3,&quot;step&quot;:0.05,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Bildgrössen einzeln&quot;},&quot;bild02&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:1,&quot;min&quot;:0.2,&quot;max&quot;:3,&quot;step&quot;:0.05,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Bildgrössen einzeln&quot;},&quot;bild03&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:1,&quot;min&quot;:0.2,&quot;max&quot;:3,&quot;step&quot;:0.05,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Bildgrössen einzeln&quot;},&quot;bild04&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:1,&quot;min&quot;:0.2,&quot;max&quot;:3,&quot;step&quot;:0.05,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Bildgrössen einzeln&quot;},&quot;bild05&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:1,&quot;min&quot;:0.2,&quot;max&quot;:3,&quot;step&quot;:0.05,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Bildgrössen einzeln&quot;},&quot;bild06&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:1,&quot;min&quot;:0.2,&quot;max&quot;:3,&quot;step&quot;:0.05,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Bildgrössen einzeln&quot;},&quot;bild07&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:1,&quot;min&quot;:0.2,&quot;max&quot;:3,&quot;step&quot;:0.05,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Bildgrössen einzeln&quot;},&quot;bild08&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:1,&quot;min&quot;:0.2,&quot;max&quot;:3,&quot;step&quot;:0.05,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Bildgrössen einzeln&quot;},&quot;bild09&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:1,&quot;min&quot;:0.2,&quot;max&quot;:3,&quot;step&quot;:0.05,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Bildgrössen einzeln&quot;},&quot;bild10&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:1,&quot;min&quot;:0.2,&quot;max&quot;:3,&quot;step&quot;:0.05,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Bildgrössen einzeln&quot;},&quot;bild11&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:1,&quot;min&quot;:0.2,&quot;max&quot;:3,&quot;step&quot;:0.05,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Bildgrössen einzeln&quot;},&quot;bild12&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:1,&quot;min&quot;:0.2,&quot;max&quot;:3,&quot;step&quot;:0.05,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Bildgrössen einzeln&quot;},&quot;bild13&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:1,&quot;min&quot;:0.2,&quot;max&quot;:3,&quot;step&quot;:0.05,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Bildgrössen einzeln&quot;},&quot;bild14&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:1,&quot;min&quot;:0.2,&quot;max&quot;:3,&quot;step&quot;:0.05,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Bildgrössen einzeln&quot;},&quot;bild15&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:1,&quot;min&quot;:0.2,&quot;max&quot;:3,&quot;step&quot;:0.05,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Bildgrössen einzeln&quot;},&quot;bild16&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:1,&quot;min&quot;:0.2,&quot;max&quot;:3,&quot;step&quot;:0.05,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Bildgrössen einzeln&quot;},&quot;bild17&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:1,&quot;min&quot;:0.2,&quot;max&quot;:3,&quot;step&quot;:0.05,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Bildgrössen einzeln&quot;},&quot;bild18&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:1,&quot;min&quot;:0.2,&quot;max&quot;:3,&quot;step&quot;:0.05,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Bildgrössen einzeln&quot;},&quot;bild19&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:1,&quot;min&quot;:0.2,&quot;max&quot;:3,&quot;step&quot;:0.05,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Bildgrössen einzeln&quot;},&quot;bild20&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:1,&quot;min&quot;:0.2,&quot;max&quot;:3,&quot;step&quot;:0.05,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Bildgrössen einzeln&quot;}}">
 class Component extends DCLogic {
   state = { phase: 'stack', infoOpen: false, capId: -1 };
+
+  _layout() { return (this.props.anordnung || 'Ellipse') === 'V' ? 'v' : 'ring'; }
 
   renderVals() {
     const count = Math.max(6, Math.min(36, Math.round(this.props.imageCount ?? 20)));
     if (!this._works || this._works.length !== count) this._works = this._buildWorks(count);
     const cap = this.state.capId >= 0 ? this._works[this.state.capId] : null;
+    const ring = this._layout() === 'ring';
     return {
       works: this._works,
       showHint: this.state.phase === 'stack',
       infoOpen: this.state.infoOpen,
+      bigName: ring,
+      cornerName: !ring,
       caption: cap ? { num: cap.num, title: cap.title, meta: cap.meta } : null,
+      nameRef: (el) => { this._nameEl = el; this._applyName(); },
+      subRef: (el) => { this._subEl = el; this._applyName(); },
       stageRef: (el) => { this._stage = el; },
-      nameRef: (el) => { this._name = el; this._applyName(); },
-      firstRef: (el) => { this._first = el; this._applyName(); },
       stageMove: (e) => this._onMove(e),
       stageTouch: () => { if (this.state.phase === 'stack') this._explode(); },
       stageClick: () => this._bgClick(),
@@ -78,18 +91,6 @@ class Component extends DCLogic {
       closeInfo: (e) => { e.stopPropagation(); this.setState({ infoOpen: false }); },
       stopProp: (e) => e.stopPropagation()
     };
-  }
-
-  _applyName() {
-    const el = this._name; if (!el) return;
-    el.style.fontSize = (this.props.nameSize ?? 24) + 'px';
-    const align = this.props.nameAlign ?? 'zentriert';
-    const x = this.props.nameX ?? 50;
-    el.style.top = (this.props.nameY ?? 28) + 'px';
-    if (align === 'links') { el.style.left = x + '%'; el.style.right = 'auto'; el.style.transform = 'none'; }
-    else if (align === 'rechts') { el.style.left = 'auto'; el.style.right = (100 - x) + '%'; el.style.transform = 'none'; }
-    else { el.style.left = x + '%'; el.style.right = 'auto'; el.style.transform = 'translateX(-50%)'; }
-    if (this._first) this._first.style.marginInlineStart = (this.props.nameGap ?? 0) + 'em';
   }
 
   _buildWorks(count) {
@@ -100,7 +101,7 @@ class Component extends DCLogic {
       const a = ars[i % ars.length], W = 1100, H = Math.round(W * a[1] / a[0]);
       return {
         i,
-        src: 'https://picsum.photos/seed/vv' + (i + 11) + '/' + W + '/' + H,
+        src: (window.__resources && window.__resources['img' + i]) || ('https://picsum.photos/seed/vv' + (i + 11) + '/' + W + '/' + H),
         hr: a[1] / a[0],
         num: String(i + 1).padStart(2, '0') + ' — ' + String(count).padStart(2, '0'),
         title: C(words[(i * 3) % words.length]) + ' ' + C(words[(i * 3 + 1) % words.length]),
@@ -113,8 +114,8 @@ class Component extends DCLogic {
   }
 
   componentDidMount() {
-    this._focus = -1; this._pinned = -1; this._lastMove = 0;
-    this._onResize = () => { this._vw = innerWidth; this._vh = innerHeight; };
+    this._focus = -1; this._pinned = -1; this._lastMove = 0; this._phase = 0; this._spin = 1;
+    this._onResize = () => { this._vw = innerWidth; this._vh = innerHeight; this._applyName(); };
     this._onKey = (e) => { if (e.key === 'Escape') { this._pinned = -1; this._focus = -1; this.setState({ capId: -1, infoOpen: false }); } };
     addEventListener('resize', this._onResize);
     addEventListener('keydown', this._onKey);
@@ -134,48 +135,121 @@ class Component extends DCLogic {
   componentDidUpdate() {
     this._applyName();
     if (this._ims && this._works && this._ims.length !== this._works.length) this._initNodes();
+    const L = this._layout();
+    if (L !== this._lastL) {
+      this._lastL = L;
+      if (this.state.phase === 'float') { if (L === 'v') this._formV(); else this._ringGeo(performance.now(), 1, 1); }
+    }
   }
 
   _initNodes() {
     const nodes = Array.from(document.querySelectorAll('[data-vvi]')).sort((a, b) => (+a.dataset.vvi) - (+b.dataset.vvi));
     const vw = this._vw, vh = this._vh, cx = vw / 2, cy = vh / 2, m = Math.min(vw, vh);
+    const n = nodes.length;
     this._ims = nodes.map((el, i) => {
       const wk = this._works[i]; if (!wk) return null;
       const base = m * (0.1 + Math.random() * 0.09) * (wk.hr > 1.2 ? 0.9 : wk.hr < 0.8 ? 1.22 : 1);
       const w = Math.round(base), h = Math.round(base * wk.hr);
       el.style.width = w + 'px'; el.style.height = h + 'px';
+      const img = el.firstElementChild;
+      if (img && img.getAttribute('src') !== wk.src) img.setAttribute('src', wk.src);
       const stackS = (m * 0.18) / w;
       const im = {
-        el, w, h,
+        el, w, h, i,
         x: cx + (Math.random() - 0.5) * 24, y: cy + (Math.random() - 0.5) * 18,
         vx: 0, vy: 0, s: stackS, vs: 0, ts: stackS,
         r: (Math.random() - 0.5) * 17, vr: 0, tr: (Math.random() - 0.5) * 17,
-        tx: 0, ty: 0, leftAt: 0,
-        bp: Math.random() * Math.PI * 2, bf: 0.25 + Math.random() * 0.35, ba: 5 + Math.random() * 9,
-        shuffleAt: 0
+        ry: 0, op: 1, tx: 0, ty: 0, leftAt: 0,
+        ang: (i / n) * Math.PI * 2,
+        bp: Math.random() * Math.PI * 2, bf: 0.25 + Math.random() * 0.35, ba: 5 + Math.random() * 9
       };
       im.tx = im.x; im.ty = im.y;
       el.style.opacity = '1';
       el.style.zIndex = String(10 + i);
       return im;
     }).filter(Boolean);
-    if (this.state.phase === 'float') this._ims.forEach((im) => { this._scatterTarget(im, false); im.ts = (0.55 + Math.random() * 0.8) * 2; im.x = im.tx; im.y = im.ty; im.s = im.ts; });
+    this._lastL = this._layout();
+    if (this.state.phase === 'float') {
+      if (this._lastL === 'v') { this._formV(); this._ims.forEach((im) => { im.x = im.tx; im.y = im.ty; im.s = im.ts; im.r = im.tr; }); }
+      else this._ringGeo(performance.now(), 1, 1);
+    }
   }
 
-  _scatterTarget(im, ring) {
-    const vw = this._vw, vh = this._vh, cx = vw / 2, cy = vh / 2;
-    if (ring) {
-      const a = Math.random() * Math.PI * 2;
-      const rad = Math.min(vw, vh) * (0.36 + Math.random() * 0.16);
-      im.tx = cx + Math.cos(a) * rad * (vw > vh ? 1.3 : 1);
-      im.ty = cy + Math.sin(a) * rad;
-    } else {
-      im.tx = vw * (0.07 + Math.random() * 0.86);
-      im.ty = vh * (0.09 + Math.random() * 0.82);
+  _applyName() {
+    const el = this._nameEl;
+    if (el) {
+      const g = Math.max(2, Math.min(24, this.props.nameGroesse ?? 7.4));
+      const W = { Extraleicht: 200, Leicht: 300, Normal: 400, Medium: 500, Fett: 700 };
+      el.style.fontSize = 'min(' + g + 'vw,' + (g * 1.76).toFixed(2) + 'vh)';
+      el.style.fontWeight = String(W[this.props.nameStaerke] || 300);
+      el.style.letterSpacing = (this.props.nameSpur ?? -0.025) + 'em';
     }
-    im.tx = Math.max(vw * 0.04, Math.min(vw * 0.96, im.tx));
-    im.ty = Math.max(vh * 0.06, Math.min(vh * 0.94, im.ty));
-    im.tr = (Math.random() - 0.5) * 5;
+    if (this._subEl) {
+      const h = el ? el.getBoundingClientRect().height : 0;
+      this._subEl.style.top = h ? 'calc(48% + ' + Math.round(h * 0.62 + 12) + 'px)' : '';
+    }
+  }
+
+  _ringGeo(now, f, force) {
+    const vw = this._vw, vh = this._vh;
+    if (!this._geo) { this._geo = { rx: vw * 0.36, ry: vw * 0.13, sz: 1, cy: vh * 0.48, next: 0 }; force = 1; }
+    const g = this._geo;
+    const A = Math.max(0, Math.min(2, this.props.automatik ?? 1));
+    const TG = Math.max(0.05, Math.min(4, this.props.tempo ?? 1));
+    const S = Math.max(0.05, Math.min(4, this.props.autoTempo ?? 1)) * TG;
+    const rb = Math.max(0.15, Math.min(0.55, this.props.ringBreite ?? 0.36));
+    const rn = Math.max(0.06, Math.min(0.8, this.props.ringNeigung ?? 0.37));
+    const ks = Math.max(0.3, Math.min(2, this.props.kachelGroesse ?? 1));
+    const t = ((now - (this._t0 || now)) / 1000) * S;
+    const w2 = (a, b, p) => Math.sin(t * a + p) * 0.62 + Math.sin(t * b + p * 1.7) * 0.38;
+    g.trx = vw * rb * (1 + 0.3 * A * w2(0.11, 0.047, 0.4));
+    const nameH = this._nameEl ? this._nameEl.getBoundingClientRect().height : vh * 0.1;
+    g.tryy = Math.max(g.trx * rn * (1 + 0.42 * A * w2(0.083, 0.031, 2.1)), nameH * 0.6 + 34, vh * 0.09);
+    g.tsz = ks * (1 + 0.32 * A * w2(0.127, 0.058, 4.3));
+    g.tkip = (this.props.ringKippung ?? 0) + 16 * A * w2(0.061, 0.024, 5.6);
+    g.tcy = vh * 0.48;
+    if (force) { g.rx = g.trx; g.ry = g.tryy; g.sz = g.tsz; g.cy = g.tcy; g.kip = g.tkip; }
+    const e = Math.min(1, 0.05 * (f || 1));
+    g.rx += (g.trx - g.rx) * e; g.ry += (g.tryy - g.ry) * e;
+    g.sz += (g.tsz - g.sz) * e; g.cy += (g.tcy - g.cy) * e;
+    g.kip = (g.kip || 0) + (g.tkip - (g.kip || 0)) * e;
+    if (now > g.next) { g.next = now + 6000 + Math.random() * 9000; if (this._spin && Math.random() < 0.5) this._spin = -this._spin; }
+    const swell = Math.sin(t * 0.052 + 1.3) * Math.sin(t * 0.021 + 0.6);
+    const env = Math.max(0, (swell - 0.22) / 0.78);
+    g.wenv = env * Math.max(0, Math.min(3, this.props.wellen ?? 1));
+    if (env < 0.02) { if (!g.wIdle) { g.wIdle = 1; g.wLobes = 2 + ((Math.random() * 3) | 0); g.wDir = Math.random() < 0.5 ? -1 : 1; } }
+    else g.wIdle = 0;
+    g.wPhase = (g.wPhase || 0) + 0.021 * (f || 1) * S * (g.wDir || 1);
+    return g;
+  }
+
+  _formV() {
+    const ims = this._ims; if (!ims || !ims.length) return;
+    const vw = this._vw, vh = this._vh, n = ims.length;
+    const nL = Math.ceil((n - 1) / 2), nR = n - 1 - nL, per = Math.max(nL, nR, 1);
+    const hMax = Math.min(vh * 0.9, vw * 0.85);
+    const h = hMax * (0.42 + Math.random() * 0.58);
+    const w = Math.min(h * (0.72 + Math.random() * 0.7), vw * 0.9);
+    const tilt = (Math.random() - 0.5) * 9;
+    const cx = vw / 2 + (Math.random() - 0.5) * vw * 0.05;
+    const cy = vh / 2 + (Math.random() - 0.5) * vh * 0.05;
+    const apex = { x: 0, y: h / 2 }, lt = { x: -w / 2, y: -h / 2 }, rt = { x: w / 2, y: -h / 2 };
+    const pts = [];
+    for (let j = 0; j < nL; j++) { const t = j / nL; pts.push({ x: lt.x + (apex.x - lt.x) * t, y: lt.y + (apex.y - lt.y) * t }); }
+    pts.push(apex);
+    for (let j = 1; j <= nR; j++) { const t = j / nR; pts.push({ x: apex.x + (rt.x - apex.x) * t, y: apex.y + (rt.y - apex.y) * t }); }
+    const slotW = (Math.hypot(w / 2, h) / per) * 1.35;
+    const rad = tilt * Math.PI / 180, co = Math.cos(rad), si = Math.sin(rad);
+    const order = ims.map((_, i) => i);
+    for (let i = order.length - 1; i > 0; i--) { const j = (Math.random() * (i + 1)) | 0; const t = order[i]; order[i] = order[j]; order[j] = t; }
+    ims.forEach((im, i) => {
+      const p = pts[order[i]] || apex;
+      im.tx = cx + p.x * co - p.y * si;
+      im.ty = cy + p.x * si + p.y * co;
+      im.ts = slotW / im.w;
+      im.tr = tilt;
+      im.slot = order[i];
+    });
   }
 
   _explode() {
@@ -186,9 +260,8 @@ class Component extends DCLogic {
       const sp = 26 + Math.random() * 30;
       im.vx = Math.cos(a) * sp; im.vy = Math.sin(a) * sp;
       im.vs = 0.03 + Math.random() * 0.04;
-      this._scatterTarget(im, false);
-      im.ts = (0.55 + Math.random() * 0.8) * 2;
     });
+    if (this._layout() === 'v') this._formV(); else this._ringGeo(performance.now(), 1, 1);
     this.setState({ phase: 'float' });
   }
 
@@ -213,29 +286,28 @@ class Component extends DCLogic {
     if (this._focus === i) {
       this._focus = -1;
       const im = this._ims && this._ims[i];
-      if (im) { im.leftAt = performance.now(); this._scatterTarget(im, false); im.ts = (0.5 + Math.random() * 0.55) * 2; }
+      if (im) im.leftAt = performance.now();
       this.setState({ capId: -1 });
     }
   }
 
   _clickItem(i) {
     if (this.state.phase === 'stack') { this._explode(); return; }
-    if (this._pinned === i) {
-      this._pinned = -1; this._focus = i;
-    } else {
-      this._pinned = i; this._focus = i;
-      this.setState({ capId: i });
-    }
+    if (this._pinned === i) { this._pinned = -1; this._focus = i; }
+    else { this._pinned = i; this._focus = i; this.setState({ capId: i }); }
   }
 
   _bgClick() {
     if (this.state.phase === 'stack') { this._explode(); return; }
     if (this._pinned >= 0) {
-      const p = this._pinned; this._pinned = -1;
-      const im = this._ims[p];
-      if (im && this._focus !== p) { this._scatterTarget(im, false); im.ts = (0.5 + Math.random() * 0.55) * 2; }
+      this._pinned = -1;
       if (this._focus < 0) this.setState({ capId: -1 });
     }
+  }
+
+  _sizeK(i) {
+    const v = this.props['bild' + String(i + 1).padStart(2, '0')];
+    return typeof v === 'number' && v > 0 ? v : 1;
   }
 
   _tick(now) {
@@ -246,28 +318,46 @@ class Component extends DCLogic {
     const drift = Math.max(0, Math.min(2.5, this.props.drift ?? 1));
     const F = Math.max(0.3, Math.min(0.98, this.props.focusScale ?? 0.6));
     const vw = this._vw, vh = this._vh, cx = vw / 2, cy = vh / 2;
-    if (this._name) {
-      const r = this._name.getBoundingClientRect();
-      this._nameRect = { left: r.left - 16, right: r.right + 16, top: r.top - 12, bottom: r.bottom + 12 };
-    }
     const active = this._pinned >= 0 ? this._pinned : this._focus;
     const moving = active >= 0 && this._pinned < 0 && (now - this._lastMove) < 170;
     const stack = this.state.phase === 'stack';
-    for (let i = 0; i < this._ims.length; i++) {
+    const ring = this._layout() === 'ring';
+    const n = this._ims.length;
+    let g = null;
+    if (ring && !stack) {
+      g = this._ringGeo(now, f, 0);
+      this._phase += (moving ? 0.00034 : 0.00012) * dt * this._spin * Math.max(0, Math.min(4, this.props.ringTempo ?? 1)) * Math.max(0.05, Math.min(4, this.props.tempo ?? 1));
+      const slot = Math.min((2 * Math.PI * g.rx / n) * 1.02 * g.sz, vh * 0.3);
+      const kip = Math.max(-45, Math.min(45, g.kip || 0)) * Math.PI / 180;
+      const kc = Math.cos(kip), ksn = Math.sin(kip);
+      for (let i = 0; i < n; i++) {
+        const im = this._ims[i];
+        const a = this._phase + im.ang;
+        const co = Math.cos(a), d01 = (1 - co) / 2;
+        const wv = g.wenv ? Math.sin(a * (g.wLobes || 3) + (g.wPhase || 0)) * g.wenv : 0;
+        const px = Math.sin(a) * g.rx, py = -co * g.ry;
+        im.tx = cx + px * kc - py * ksn;
+        im.ty = g.cy + px * ksn + py * kc + wv * (g.ry * 0.55 + 40);
+        im.ts = (slot * (0.52 + 0.55 * d01) * (1 + wv * 0.14)) / im.w;
+        im.tr = (kip * 180 / Math.PI) * 0.35;
+        im.tryv = -68 * Math.sin(a);
+        im.top = 0.3 + 0.7 * d01;
+        im.slot = Math.round(d01 * 460);
+      }
+    } else if (!ring && moving && now > (this._nextForm || 0)) {
+      this._formV(); this._nextForm = now + 900 + Math.random() * 900;
+    }
+    for (let i = 0; i < n; i++) {
       const im = this._ims[i];
-      let k, d, ks, tx = im.tx, ty = im.ty, ts = im.ts, tr = im.tr;
+      let k, d, ks, tx = im.tx, ty = im.ty, ts = im.ts * this._sizeK(i), tr = im.tr, tryv = im.tryv || 0, top = ring && !stack ? im.top : 1;
       if (i === active) {
-        tx = cx; ty = cy; tr = 0;
+        tx = cx; ty = ring ? vh * 0.5 : cy; tr = 0; tryv = 0; top = 1;
         ts = Math.min(vw * F / im.w, vh * F / im.h);
         k = 0.014; d = 0.84; ks = 0.014;
       } else {
-        if (moving && now > im.shuffleAt) {
-          this._scatterTarget(im, true);
-          im.ts = (0.32 + Math.random() * 0.42) * 2;
-          im.shuffleAt = now + 500 + Math.random() * 1700;
-          tx = im.tx; ty = im.ty; ts = im.ts; tr = im.tr;
-        }
-        k = stack ? 0.02 : 0.0038; d = stack ? 0.8 : 0.915; ks = 0.006;
+        k = stack ? 0.02 : ring ? 0.012 : 0.006;
+        d = stack ? 0.8 : ring ? 0.86 : 0.9;
+        ks = ring ? 0.014 : 0.008;
       }
       const dp = Math.pow(d, f);
       im.vx = (im.vx + (tx - im.x) * k * f) * dp;
@@ -277,34 +367,25 @@ class Component extends DCLogic {
       im.s += im.vs * f;
       im.vr = (im.vr + (tr - im.r) * 0.01 * f) * Math.pow(0.88, f);
       im.r += im.vr * f;
+      im.ry += (tryv - im.ry) * Math.min(1, 0.14 * f);
+      im.op += (top - im.op) * Math.min(1, 0.1 * f);
       let bx = 0, by = 0;
       if (!stack) {
-        const bd = i === active ? 0.2 : 1;
+        const bd = i === active ? 0.2 : ring ? 0.3 : 0.42;
         bx = Math.sin(t * im.bf * 2 + im.bp) * im.ba * drift * bd;
         by = Math.cos(t * im.bf * 1.7 + im.bp * 1.4) * im.ba * 1.25 * drift * bd;
       }
       const img = im.el.firstElementChild;
+      if (img && !img.getAttribute('src')) img.setAttribute('src', this._works[i].src);
       if (img) {
         const full = Math.min(vw * F / im.w, vh * F / im.h);
         const p = Math.max(0, Math.min(1, (im.s - im.ts) / Math.max(0.001, full - im.ts)));
-        const g = i === active ? Math.max(0, 1 - p * 1.4) : 1;
-        img.style.filter = 'grayscale(' + g.toFixed(3) + ')';
+        const gs = i === active ? Math.max(0, 1 - p * 1.4) : 1;
+        img.style.filter = 'grayscale(' + gs.toFixed(3) + ')';
       }
-      const nr = this._nameRect;
-      if (nr) {
-        const s = Math.max(0.02, im.s);
-        const hw = (im.w * s) / 2 * 1.05, hh = (im.h * s) / 2 * 1.05;
-        const cxp = im.x + bx, cyp = im.y + by;
-        const ox = Math.min(nr.right, cxp + hw) - Math.max(nr.left, cxp - hw);
-        const oy = Math.min(nr.bottom, cyp + hh) - Math.max(nr.top, cyp - hh);
-        if (ox > 0 && oy > 0) {
-          const down = nr.bottom - (cyp - hh);
-          const up = (cyp + hh) - nr.top;
-          by += (down <= up && nr.bottom + im.h * s < vh + hh) ? down : -up;
-        }
-      }
-      im.el.style.transform = 'translate3d(' + (im.x + bx - im.w / 2).toFixed(2) + 'px,' + (im.y + by - im.h / 2).toFixed(2) + 'px,0) rotate(' + im.r.toFixed(2) + 'deg) scale(' + Math.max(0.02, im.s).toFixed(4) + ')';
-      im.el.style.zIndex = i === active ? '500' : String(10 + Math.round(im.s * 40));
+      im.el.style.opacity = im.op.toFixed(3);
+      im.el.style.transform = 'translate3d(' + (im.x + bx - im.w / 2).toFixed(2) + 'px,' + (im.y + by - im.h / 2).toFixed(2) + 'px,0) rotateY(' + im.ry.toFixed(2) + 'deg) rotate(' + im.r.toFixed(2) + 'deg) scale(' + Math.max(0.02, im.s).toFixed(4) + ')';
+      im.el.style.zIndex = i === active ? '600' : String(20 + (im.slot != null ? im.slot : i));
     }
   }
 }
