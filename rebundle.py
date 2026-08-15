@@ -9,12 +9,16 @@ them so a source edit can be published without re-running the editor:
      (fonts are unchanged, so the previous helmet is reused verbatim)
   3. image src expression -> resolved from window.__resources with the
      original expression as fallback
+
+The exporter also hardcodes the page title, so we override it here.
 """
+import html
 import json
 import re
 import sys
 
 TEMPLATE_OPEN = '<script type="__bundler/template">'
+PAGE_TITLE = 'Valentina Vukelic — Portfolio'
 
 
 def kebab(name):
@@ -75,6 +79,13 @@ def main(bundle_path, source_path, out_path):
                           template, count=1, flags=re.S)
     if n != 1:
         sys.exit('x-dc script not found in template')
+
+    # --- page title: the exporter always emits "Bundled Page" ---
+    prefix, n = re.subn(r'<title>.*?</title>',
+                        '<title>%s</title>' % html.escape(PAGE_TITLE),
+                        prefix, count=1, flags=re.S)
+    if n != 1:
+        sys.exit('<title> not found in bundle head')
 
     open(out_path, 'w', encoding='utf-8').write(
         prefix + encode_template(template) + suffix)
