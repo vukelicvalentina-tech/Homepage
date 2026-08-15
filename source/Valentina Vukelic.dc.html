@@ -7,11 +7,11 @@
 </head>
 <body>
 <x-dc>
-<helmet data-dc-atomics>
+<helmet data-dc-atomics="">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&amp;display=swap" rel="stylesheet">
 <style>
 html,body{margin:0;padding:0;height:100%;background:#f1f0ed;color:#0c0c0c;font-family:'Archivo',system-ui,sans-serif;overflow:hidden}
 a{color:#0c0c0c;text-decoration:underline;text-underline-offset:3px}
@@ -26,8 +26,8 @@ a:hover{color:#6b6b6b}
       <img src="{{ w.src }}" alt="{{ w.title }}" draggable="false" style="display:block;width:100%;height:100%;object-fit:cover;pointer-events:none;filter:grayscale(1)">
     </div>
   </sc-for>
-  <div ref="{{ nameRef }}" style="position:fixed;left:6%;top:10%;z-index:640;pointer-events:none;transform:rotate(45deg);transform-origin:left top;writing-mode:vertical-rl;line-height:1;font-size:24px;letter-spacing:.08em;text-transform:uppercase;white-space:nowrap">
-    <span style="font-weight:300;opacity:.75;display:inline-block;transform:rotate(180deg)">Vukelic</span><span ref="{{ firstRef }}" style="font-weight:700;margin-block-start:-0.38em">Valentina</span>
+  <div ref="{{ nameRef }}" style="position:fixed;left:50%;top:28px;z-index:640;pointer-events:none;transform:translateX(-50%);display:flex;align-items:baseline;gap:0.3em;line-height:1;font-size:24px;letter-spacing:.08em;text-transform:uppercase;white-space:nowrap">
+    <span style="font-weight:300;opacity:.75;display:inline-block;transform:rotate(180deg)">Vukelic</span><span ref="{{ firstRef }}" style="font-weight:700">Valentina</span>
   </div>
   <sc-if value="{{ showHint }}" hint-placeholder-val="{{ true }}">
     <div style="position:fixed;left:50%;top:calc(50% + 128px);transform:translateX(-50%);z-index:640;pointer-events:none;font-size:10px;letter-spacing:.34em;text-transform:uppercase;animation:vvPulse 2.6s ease-in-out infinite">Portfolio</div>
@@ -55,16 +55,7 @@ a:hover{color:#6b6b6b}
   </div>
 </sc-if>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props="{
-  &quot;nameSize&quot;: {&quot;editor&quot;: &quot;range&quot;, &quot;default&quot;: 24, &quot;min&quot;: 12, &quot;max&quot;: 120, &quot;step&quot;: 1, &quot;unit&quot;: &quot;px&quot;, &quot;tsType&quot;: &quot;number&quot;, &quot;section&quot;: &quot;Name&quot;},
-  &quot;nameGap&quot;: {&quot;editor&quot;: &quot;range&quot;, &quot;default&quot;: -0.38, &quot;min&quot;: -1, &quot;max&quot;: 1.5, &quot;step&quot;: 0.01, &quot;unit&quot;: &quot;em&quot;, &quot;tsType&quot;: &quot;number&quot;, &quot;section&quot;: &quot;Name&quot;},
-  &quot;nameRotation&quot;: {&quot;editor&quot;: &quot;range&quot;, &quot;default&quot;: 45, &quot;min&quot;: -180, &quot;max&quot;: 180, &quot;step&quot;: 1, &quot;unit&quot;: &quot;°&quot;, &quot;tsType&quot;: &quot;number&quot;, &quot;section&quot;: &quot;Name&quot;},
-  &quot;nameX&quot;: {&quot;editor&quot;: &quot;range&quot;, &quot;default&quot;: 6, &quot;min&quot;: 0, &quot;max&quot;: 100, &quot;step&quot;: 0.5, &quot;unit&quot;: &quot;%&quot;, &quot;tsType&quot;: &quot;number&quot;, &quot;section&quot;: &quot;Name&quot;},
-  &quot;nameY&quot;: {&quot;editor&quot;: &quot;range&quot;, &quot;default&quot;: 10, &quot;min&quot;: 0, &quot;max&quot;: 100, &quot;step&quot;: 0.5, &quot;unit&quot;: &quot;%&quot;, &quot;tsType&quot;: &quot;number&quot;, &quot;section&quot;: &quot;Name&quot;},
-  &quot;imageCount&quot;: {&quot;editor&quot;: &quot;int&quot;, &quot;default&quot;: 20, &quot;min&quot;: 6, &quot;max&quot;: 36, &quot;tsType&quot;: &quot;number&quot;, &quot;section&quot;: &quot;Bilder&quot;},
-  &quot;focusScale&quot;: {&quot;editor&quot;: &quot;range&quot;, &quot;default&quot;: 0.6, &quot;min&quot;: 0.3, &quot;max&quot;: 0.98, &quot;step&quot;: 0.01, &quot;tsType&quot;: &quot;number&quot;, &quot;section&quot;: &quot;Verhalten&quot;},
-  &quot;drift&quot;: {&quot;editor&quot;: &quot;range&quot;, &quot;default&quot;: 1, &quot;min&quot;: 0, &quot;max&quot;: 2.5, &quot;step&quot;: 0.1, &quot;tsType&quot;: &quot;number&quot;, &quot;section&quot;: &quot;Verhalten&quot;}
-}">
+<script type="text/x-dc" data-dc-script data-props="{&quot;nameAlign&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;links&quot;,&quot;zentriert&quot;,&quot;rechts&quot;],&quot;default&quot;:&quot;zentriert&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Name-Position&quot;},&quot;nameX&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:14,&quot;min&quot;:0,&quot;max&quot;:100,&quot;step&quot;:0.5,&quot;unit&quot;:&quot;%&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Name-Position&quot;},&quot;nameY&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:24,&quot;min&quot;:0,&quot;max&quot;:600,&quot;step&quot;:1,&quot;unit&quot;:&quot;px&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Name-Position&quot;},&quot;nameSize&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:20,&quot;min&quot;:12,&quot;max&quot;:120,&quot;step&quot;:1,&quot;unit&quot;:&quot;px&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Name&quot;},&quot;nameGap&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:-0.05,&quot;min&quot;:-0.5,&quot;max&quot;:2,&quot;step&quot;:0.05,&quot;unit&quot;:&quot;em&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Name&quot;},&quot;imageCount&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:20,&quot;min&quot;:6,&quot;max&quot;:36,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Bilder&quot;},&quot;focusScale&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:0.6,&quot;min&quot;:0.3,&quot;max&quot;:0.98,&quot;step&quot;:0.01,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Verhalten&quot;},&quot;drift&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:1,&quot;min&quot;:0,&quot;max&quot;:2.5,&quot;step&quot;:0.1,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Verhalten&quot;}}">
 class Component extends DCLogic {
   state = { phase: 'stack', infoOpen: false, capId: -1 };
 
@@ -91,15 +82,14 @@ class Component extends DCLogic {
 
   _applyName() {
     const el = this._name; if (!el) return;
-    const size = this.props.nameSize ?? 24;
-    const rot = this.props.nameRotation ?? 45;
-    const x = this.props.nameX ?? 6;
-    const y = this.props.nameY ?? 10;
-    el.style.fontSize = size + 'px';
-    el.style.left = x + '%';
-    el.style.top = y + '%';
-    el.style.transform = 'rotate(' + rot + 'deg)';
-    if (this._first) this._first.style.marginBlockStart = (this.props.nameGap ?? -0.38) + 'em';
+    el.style.fontSize = (this.props.nameSize ?? 24) + 'px';
+    const align = this.props.nameAlign ?? 'zentriert';
+    const x = this.props.nameX ?? 50;
+    el.style.top = (this.props.nameY ?? 28) + 'px';
+    if (align === 'links') { el.style.left = x + '%'; el.style.right = 'auto'; el.style.transform = 'none'; }
+    else if (align === 'rechts') { el.style.left = 'auto'; el.style.right = (100 - x) + '%'; el.style.transform = 'none'; }
+    else { el.style.left = x + '%'; el.style.right = 'auto'; el.style.transform = 'translateX(-50%)'; }
+    if (this._first) this._first.style.marginInlineStart = (this.props.nameGap ?? 0) + 'em';
   }
 
   _buildWorks(count) {
@@ -256,6 +246,10 @@ class Component extends DCLogic {
     const drift = Math.max(0, Math.min(2.5, this.props.drift ?? 1));
     const F = Math.max(0.3, Math.min(0.98, this.props.focusScale ?? 0.6));
     const vw = this._vw, vh = this._vh, cx = vw / 2, cy = vh / 2;
+    if (this._name) {
+      const r = this._name.getBoundingClientRect();
+      this._nameRect = { left: r.left - 16, right: r.right + 16, top: r.top - 12, bottom: r.bottom + 12 };
+    }
     const active = this._pinned >= 0 ? this._pinned : this._focus;
     const moving = active >= 0 && this._pinned < 0 && (now - this._lastMove) < 170;
     const stack = this.state.phase === 'stack';
@@ -295,6 +289,19 @@ class Component extends DCLogic {
         const p = Math.max(0, Math.min(1, (im.s - im.ts) / Math.max(0.001, full - im.ts)));
         const g = i === active ? Math.max(0, 1 - p * 1.4) : 1;
         img.style.filter = 'grayscale(' + g.toFixed(3) + ')';
+      }
+      const nr = this._nameRect;
+      if (nr) {
+        const s = Math.max(0.02, im.s);
+        const hw = (im.w * s) / 2 * 1.05, hh = (im.h * s) / 2 * 1.05;
+        const cxp = im.x + bx, cyp = im.y + by;
+        const ox = Math.min(nr.right, cxp + hw) - Math.max(nr.left, cxp - hw);
+        const oy = Math.min(nr.bottom, cyp + hh) - Math.max(nr.top, cyp - hh);
+        if (ox > 0 && oy > 0) {
+          const down = nr.bottom - (cyp - hh);
+          const up = (cyp + hh) - nr.top;
+          by += (down <= up && nr.bottom + im.h * s < vh + hh) ? down : -up;
+        }
       }
       im.el.style.transform = 'translate3d(' + (im.x + bx - im.w / 2).toFixed(2) + 'px,' + (im.y + by - im.h / 2).toFixed(2) + 'px,0) rotate(' + im.r.toFixed(2) + 'deg) scale(' + Math.max(0.02, im.s).toFixed(4) + ')';
       im.el.style.zIndex = i === active ? '500' : String(10 + Math.round(im.s * 40));
